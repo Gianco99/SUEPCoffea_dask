@@ -11,7 +11,7 @@ def leadDeltaR(x):
   return x['deltaR_leadjet']
 
 def cut(x):
-  return (x["njets"] >= 0) & ((x["Z_m"]-90) > 30) & (x["nBLoose"] == 0) & (x["leadcluster_pt"] >= 60) & (x["Z_pt"] >= 25) & (compute_deltaR(x['leadjet_eta'], x['leadjet_phi'], x['leadcluster_eta'], x['leadcluster_phi']) <= 1.5)
+  return (x["njets"] >= 0) & (x["Z_m"] > 120) & (x["nBLoose"] == 0) & (x["leadcluster_pt"] >= 60) & (x["Z_pt"] >= 25) & (compute_deltaR(x['leadjet_eta'], x['leadjet_phi'], x['leadcluster_eta'], x['leadcluster_phi']) <= 1.5)
 
 plots = {
   "njets": {

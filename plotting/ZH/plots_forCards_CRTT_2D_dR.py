@@ -1,8 +1,18 @@
 import ROOT
+import numpy as np
+import pandas as pd
 
+def compute_deltaR(eta1, phi1, eta2, phi2):
+    deta = eta1 - eta2
+    dphi = np.arccos(np.cos(phi1 - phi2))
+    return np.sqrt(deta ** 2 + dphi ** 2)
+
+def leadDeltaR(x):
+  x['deltaR_leadjet'] = compute_deltaR(x['leadjet_eta'], x['leadjet_phi'], x['leadcluster_eta'], x['leadcluster_phi'])
+  return x['deltaR_leadjet']
 
 def cut(x):
-  return (x["njets"] >= 0) & (x["Z_m"] > 120) & (x["Z_pt"] >= 25) & (x["nBLoose"] > 0) & (x["leadcluster_pt"] >= 60)
+  return (x["njets"] >= 0) & (x["Z_m"] > 120) & (x["Z_pt"] >= 25) & (x["nBLoose"] > 0) & (x["leadcluster_pt"] >= 60) & (compute_deltaR(x['leadjet_eta'], x['leadjet_phi'], x['leadcluster_eta'], x['leadcluster_phi']) <= 1.5)
 
 plots = {
 }
